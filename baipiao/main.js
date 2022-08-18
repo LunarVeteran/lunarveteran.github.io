@@ -202,7 +202,7 @@ function submit_menu(event) {
 function load_menu_by_page(page) {
     document.getElementById('menu-script')?.remove?.();
     const new_menu_script = document.createElement('script');
-    new_menu_script.src = `${api_root}/apps/Welfare/getMenuList?callback=baipiao_menu&page=${page}`;
+    new_menu_script.src = `${api_root}/apps/Welfare/getMenuList?callback=baipiao_menu&page=${page}&from=wx`;
     new_menu_script.id = 'menu-script';
     new_menu_script.setAttribute('data-requested-page', page.toString());
     document.head.appendChild(new_menu_script);
