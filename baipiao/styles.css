@@ -1,0 +1,70 @@
+section {
+    margin-block-end: 1em;
+}
+
+.cover img {
+    height: auto;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+div.gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+div.gallery img {
+    display: block;
+    margin: 3px;
+    min-width: 158px;
+    min-height: 158px;
+    border: solid;
+}
+
+div.menu {
+    display: flex;
+    flex-wrap: wrap;
+}
+div.menu figure {
+    display: block;
+    margin: 5px;
+    width: 120px;
+}
+div.menu figure img {
+    height: auto;
+    width: auto;
+    max-height: 180px;
+    max-width: 120px;
+}
+div.menu a {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+
+/* https://loading.io/css/ */
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid WindowText;
+  border-color: WindowText transparent WindowText transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

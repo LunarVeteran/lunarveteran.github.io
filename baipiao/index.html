@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src *.tuwandata.com *.getclicky.com; media-src *.tuwandata.com; script-src 'self' 'unsafe-inline' https://api.tuwan.com *.getclicky.com clicky.com; connect-src *.getclicky.com; style-src 'self' 'unsafe-inline'; child-src 'none';">
+    <title>白嫖</title>
+    <meta name="viewport" content="width=device-width">
+    <!-- <meta name="referrer" content="same-origin"> -->
+    <meta name="color-scheme" id="meta-color-scheme" content="light dark">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="glightbox.min.css" />
+
+    <script defer src="prefix_tree.js"></script>
+    <script type="module">
+        import './glightbox.min.js';
+
+        window['lightbox'] = GLightbox({
+            preload: false,
+        });
+    </script>
+    <script defer src="main.js"></script>
+</head>
+<body>
+
+<section>
+    <form id="album-form">
+        <button id="random-album" type="button">随机图包</button>
+        <label>指定图包ID：<input type="number" min="0" id="album-id"></label>
+        <button id="album-submit" type="submit">让我康康！</button>
+    </form>
+</section>
+
+<section>
+    <h3 id="menu-title">菜单 <button id="show-menu">康康</button> <button id="hide-menu" class="hidden">收了</button></h3>
+    <div id="menu" class="hidden">
+        <div id="menu-body" class="menu"></div>
+        <p>
+            <button id="menu-prev" type="button">上一页</button>
+            <span>第<span id="menu-current-page"></span>页 / 共<span id="menu-total-pages"></span>页</span>
+            <button id="menu-next" type="button">下一页</button>
+        </p>
+        <form id="menu-form">
+            <label for="menu-page" hidden>页码</label><input type="number" min="1" id="menu-page" value="1">
+            <button id="menu-page-submit" type="submit">转到此页</button>
+        </form>
+    </div>
+</section>
+
+<section>
+    <h3>音乐 <button id="show-music">康康</button> <button id="hide-music" class="hidden">收了</button></h3>
+    <div id="music" class="hidden">
+        <div id="music-info">图包的背景音乐在这里</div>
+        <audio id="music-audio" controls preload="none">您的浏览器不支持<code>audio</code>标签</audio>
+    </div>
+</section>
+
+<section id="album-display">
+    <h2 id="album-title"></h2>
+    <div id="album-descriptions">
+        <div class="lds-dual-ring"></div>
+        <p>网页载入中，请稍候……</p>
+        <p><small>首次载入所需的数据表可能需要稍长的时间，请耐心等待</small></p>
+    </div>
+    <div id="cover" class="cover"></div>
+    <div id="gallery" class="gallery"></div>
+</section>
+
+<section>
+    <h3>设置与帮助信息 <button id="show-options">康康</button> <button id="hide-options" class="hidden">收了</button></h3>
+    <div id="options" class="hidden">
+        <p>
+            <label for="color-scheme-select">光明还是黑暗：</label>
+            <select id="color-scheme-select">
+                <option value="light dark">跟随系统</option>
+                <option value="light">亮</option>
+                <option value="dark">暗</option>
+            </select>
+        </p>
+        <p>
+            <label>
+                自动收起菜单：<input id="auto-collapse-menu" type="checkbox" checked>
+            </label>
+        </p>
+        <h4>帮助</h4>
+        <p>
+            本页面显示的图片、音乐、菜单内容均来自于第三方网站API，这些内容的可用性、正确性不在本页面的控制之下。
+            本页面的功能完全由浏览器内运行的JavaScript实现，除了内容提供方之外不依赖于任何服务器端的组件。
+        </p>
+        <p>
+            在指定0为图包ID时，API会返回一个随机的图包。
+            有效的图包ID为正整数，最高可以到2000多，不过并不是每一个ID都是有效的。
+            不是所有的API调用错误都能在页面上显示出来。如果一直没反应，可以看看开发者控制台。
+        </p>
+        <p>
+            本页面使用了第三方提供的界面组件：<a href="https://biati-digital.github.io/glightbox/">GLightbox</a>
+        </p>
+        <p>
+            本站使用来自第三方的Analytics服务：
+            <a title="GDPR-compliant Web Analytics" href="https://clicky.com/101377062"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+            本站配置的数据收集选项不记录您的任何个人信息。
+            请参阅Clicky的<a href="https://clicky.com/terms/privacy">Privacy Policy</a>。
+        </p>
+    </div>
+</section>
+
+<script async src="//static.getclicky.com/101377062.js"></script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101377062ns.gif" /></p></noscript>
+</body>
+</html>
