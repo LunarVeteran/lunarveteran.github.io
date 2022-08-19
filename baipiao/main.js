@@ -41,11 +41,6 @@ function onhashchange(event) {
     load_album_by_id(album_id);
 }
 
-function random_album() {
-    document.getElementById('album-id').value = 0;
-    load_album_by_id(0);
-}
-
 function album_submit(event) {
     event.preventDefault();
     const album_id = document.getElementById('album-id').value;
@@ -62,7 +57,7 @@ function clear_album() {
 function empty_album() {
     clear_album();
     document.getElementById('album-title').textContent = '图包显示区域';
-    document.getElementById('album-descriptions').textContent = '试一下上面的“随机图包”或者“菜单”吧';
+    document.getElementById('album-descriptions').textContent = '在页面顶端指定一个图包ID，或者展开“菜单”看看';
 }
 
 function load_album_by_hash() {
@@ -173,6 +168,10 @@ function baipiao_album(album) {
     clicky_log_wrapper(`#album-view-${album['id']}`);
 }
 
+function change_menu_type() {
+    load_menu_by_page(1);
+}
+
 function load_menu_if_not_yet_loaded() {
     if (!document.getElementById('menu-script')) {
         load_menu_by_page(1);
@@ -202,8 +201,10 @@ function submit_menu(event) {
 function load_menu_by_page(page) {
     document.getElementById('menu-script')?.remove?.();
     const new_menu_script = document.createElement('script');
-    new_menu_script.src = `${api_root}/apps/Welfare/getMenuList?callback=baipiao_menu&page=${page}&from=wx`;
+    const menu_type_arg = document.getElementById('menu-type').value;
+    new_menu_script.src = `${api_root}/apps/Welfare/getMenuList?callback=baipiao_menu&page=${page}&from=wx&${menu_type_arg}`;
     new_menu_script.id = 'menu-script';
+    new_menu_script.setAttribute('data-requested-type-arg', menu_type_arg);
     new_menu_script.setAttribute('data-requested-page', page.toString());
     document.head.appendChild(new_menu_script);
     document.getElementById('menu-current-page').textContent = page.toString();
@@ -295,9 +296,9 @@ function set_part_visibility(part_name, visible) {
 
 window.addEventListener('hashchange', onhashchange);
 document.getElementById('color-scheme-select').addEventListener('change', set_color_scheme);
-document.getElementById('random-album').addEventListener('click', random_album);
 document.getElementById('album-form').addEventListener('submit', album_submit);
 document.getElementById('album-id').value = hash_to_album_id();
+document.getElementById('menu-type').addEventListener('change', change_menu_type);
 document.getElementById('menu-prev').addEventListener('click', menu_prev);
 document.getElementById('menu-next').addEventListener('click', menu_next);
 document.getElementById('menu-form').addEventListener('submit', submit_menu);

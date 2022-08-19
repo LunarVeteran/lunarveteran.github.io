@@ -26,15 +26,74 @@
 
 <section>
     <form id="album-form">
-        <button id="random-album" type="button">随机图包</button>
-        <label>指定图包ID：<input type="number" min="0" id="album-id"></label>
+        <label>指定图包ID：<input type="number" min="0" max="9999" id="album-id"></label>
         <button id="album-submit" type="submit">让我康康！</button>
     </form>
 </section>
 
 <section>
-    <h3 id="menu-title">菜单 <button id="show-menu">康康</button> <button id="hide-menu" class="hidden">收了</button></h3>
+    <h3 id="menu-title">菜单 <button id="show-menu">展开</button> <button id="hide-menu" class="hidden">收起</button></h3>
     <div id="menu" class="hidden">
+        <label for="menu-type">菜单类型：</label>
+        <select id="menu-type">
+            <option value="mode=type&typeid=0" selected>无筛选</option>
+            <optgroup label="类别">
+                <option value="mode=type&typeid=1">萌妹图库</option>
+                <option value="mode=type&typeid=2">软妹志</option>
+                <option value="mode=type&typeid=3">兔女郎</option>
+                <option value="mode=type&typeid=4">表情壁纸</option>
+                <option value="mode=type&typeid=5">（类别5）</option>
+                <option value="mode=type&typeid=6">夏日泳装</option>
+                <option value="mode=type&typeid=7">精选推荐</option>
+                <option value="mode=type&typeid=8">（类别8）</option>
+                <option value="mode=type&typeid=9">百合</option>
+                <option value="mode=type&typeid=10">JK制服</option>
+                <option value="mode=type&typeid=11">魅力cos</option>
+                <option value="mode=type&typeid=12">体操服</option>
+                <option value="mode=type&typeid=13">（类别13）</option>
+            </optgroup>
+            <optgroup label="标签">
+                <option value="mode=tag&typeid=0">游戏类</option>
+                <option value="mode=tag&typeid=1">动漫类</option>
+                <option value="mode=tag&typeid=2">（标签2）</option>
+                <option value="mode=tag&typeid=3">幼齿</option>
+                <option value="mode=tag&typeid=4">萝莉</option>
+                <option value="mode=tag&typeid=5">少女</option>
+                <option value="mode=tag&typeid=6">御姐</option>
+                <option value="mode=tag&typeid=7">贫乳</option>
+                <option value="mode=tag&typeid=8">巨乳</option>
+                <option value="mode=tag&typeid=9">骨感消瘦</option>
+                <option value="mode=tag&typeid=10">丰满微胖</option>
+                <option value="mode=tag&typeid=11">黑丝</option>
+                <option value="mode=tag&typeid=12">白丝</option>
+                <option value="mode=tag&typeid=13">肉丝</option>
+                <option value="mode=tag&typeid=14">网袜</option>
+                <option value="mode=tag&typeid=15">吊带袜</option>
+                <option value="mode=tag&typeid=16">腿控</option>
+                <option value="mode=tag&typeid=17">脚控</option>
+                <option value="mode=tag&typeid=18">臀控</option>
+                <option value="mode=tag&typeid=19">锁骨</option>
+                <option value="mode=tag&typeid=20">女仆</option>
+                <option value="mode=tag&typeid=21">兔女郎</option>
+                <option value="mode=tag&typeid=22">死库水</option>
+                <option value="mode=tag&typeid=23">OL</option>
+                <option value="mode=tag&typeid=24">洛丽塔</option>
+                <option value="mode=tag&typeid=25">JK制服</option>
+                <option value="mode=tag&typeid=26">运动体操服</option>
+                <option value="mode=tag&typeid=27">旗袍</option>
+                <option value="mode=tag&typeid=28">（标签28）</option>
+                <option value="mode=tag&typeid=29">比基尼</option>
+                <option value="mode=tag&typeid=30">其他服装</option>
+                <option value="mode=tag&typeid=31">无剧情</option>
+                <option value="mode=tag&typeid=32">轻剧情</option>
+                <option value="mode=tag&typeid=33">连续剧情</option>
+                <option value="mode=tag&typeid=34">保守</option>
+                <option value="mode=tag&typeid=35">标准福利</option>
+                <option value="mode=tag&typeid=36">大福利</option>
+                <option value="mode=tag&typeid=37">危险福利</option>
+                <option value="mode=tag&typeid=38">（标签38）</option>
+            </optgroup>
+        </select>
         <div id="menu-body" class="menu"></div>
         <p>
             <button id="menu-prev" type="button">上一页</button>
@@ -42,14 +101,15 @@
             <button id="menu-next" type="button">下一页</button>
         </p>
         <form id="menu-form">
-            <label for="menu-page" hidden>页码</label><input type="number" min="1" id="menu-page" value="1">
-            <button id="menu-page-submit" type="submit">转到此页</button>
+            <label for="menu-page">跳转到此页：</label>
+            <input type="number" min="1" max="999" id="menu-page" value="1">
+            <button id="menu-page-submit" type="submit">跳转</button>
         </form>
     </div>
 </section>
 
 <section>
-    <h3>音乐 <button id="show-music">康康</button> <button id="hide-music" class="hidden">收了</button></h3>
+    <h3>音乐 <button id="show-music">展开</button> <button id="hide-music" class="hidden">收起</button></h3>
     <div id="music" class="hidden">
         <div id="music-info">图包的背景音乐在这里</div>
         <audio id="music-audio" controls preload="none">您的浏览器不支持<code>audio</code>标签</audio>
