@@ -102,7 +102,7 @@ function baipiao_album(album) {
     album_link.href = `#${album['id']}`;
     document.getElementById('album-title').appendChild(album_link);
     const description_keys = {
-        'typename': '图包类型',
+        'typename': '类型',
         'total': '图片数量',
         'tags': '标签',
         'upvote': '赞',
