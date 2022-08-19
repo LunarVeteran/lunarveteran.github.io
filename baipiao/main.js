@@ -9,7 +9,7 @@ function set_color_scheme() {
 
 function clicky_log_wrapper(...args) {
     if (typeof clicky == 'undefined') {
-        console.log('clicky not loaded');
+        console.log('clicky not loaded, trying to log:', args);
         return;
     }
     clicky.log(...args);
@@ -201,15 +201,15 @@ function submit_menu(event) {
 function load_menu_by_page(page) {
     document.getElementById('menu-script')?.remove?.();
     const new_menu_script = document.createElement('script');
-    const menu_type_arg = document.getElementById('menu-type').value;
-    new_menu_script.src = `${api_root}/apps/Welfare/getMenuList?callback=baipiao_menu&page=${page}&from=wx&${menu_type_arg}`;
+    const menu_args = `${document.getElementById('menu-type').value}&page=${page}`;
+    new_menu_script.src = `${api_root}/apps/Welfare/getMenuList?callback=baipiao_menu&from=wx&${menu_args}`;
     new_menu_script.id = 'menu-script';
-    new_menu_script.setAttribute('data-requested-type-arg', menu_type_arg);
+    new_menu_script.setAttribute('data-requested-args', menu_args);
     new_menu_script.setAttribute('data-requested-page', page.toString());
     document.head.appendChild(new_menu_script);
     document.getElementById('menu-current-page').textContent = page.toString();
     document.getElementById('menu-prev').disabled = page <= 1;
-    clicky_log_wrapper(`#menu-load-${page}`);
+    clicky_log_wrapper(`#menu-load-${menu_args}`);
 }
 
 function baipiao_menu(menu) {
@@ -244,7 +244,7 @@ function baipiao_menu(menu) {
         menu_body.appendChild(a);
     }
     document.getElementById('menu-title').scrollIntoView();
-    clicky_log_wrapper(`#menu-view-${menu['page']}`);
+    clicky_log_wrapper(`#menu-view-${document.getElementById('menu-script').getAttribute('data-requested-args')}`);
 }
 
 function generate_fullsize_url(thumb_url) {
