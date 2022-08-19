@@ -238,7 +238,7 @@ function baipiao_menu(menu) {
         img.src = entry['pic'].replace(/^http:\/\//, 'https://');
         figure.appendChild(img);
         const caption = document.createElement('figcaption');
-        caption.textContent = `${entry['id']}: ${entry['title']} \u{1F44D}\u2060${entry['upvote']}`;
+        caption.textContent = `${entry['id']}: ${entry['title']}`;
         figure.appendChild(caption);
         a.appendChild(figure);
         menu_body.appendChild(a);
