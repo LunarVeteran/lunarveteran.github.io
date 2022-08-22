@@ -260,19 +260,11 @@ function generate_fullsize_url(thumb_url) {
     let magic_key;
     let new_version;
     if (match[1] === '4') {
-        new_version = '3';
-        let current_level = prefix_tree;
-        for (const c of match[3]) {
-            const next_level = current_level[c];
-            if (!next_level) {
-                return null;
-            }
-            if (typeof next_level === 'string') {
-                magic_key = next_level;
-                break;
-            }
-            current_level = next_level;
+        magic_key = find_prefix(match[3]);
+        if (!magic_key) {
+            return null;
         }
+        new_version = '3';
     }
     else {
         magic_key = atob(match[3]).split(',')[0];
