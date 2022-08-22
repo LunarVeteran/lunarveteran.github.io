@@ -77,7 +77,7 @@ function load_album_by_id(id) {
     new_album_script.setAttribute('data-queried-album-id', id.toString());
     new_album_script.addEventListener('error', album_script_error);
     document.head.appendChild(new_album_script);
-    clicky_log_wrapper(`#album-load-${id}`);
+    clicky_log_wrapper(`/baipiao/clicky-virtual/action/album-load/${id}`, `Loading album ${id}`);
 }
 
 function album_script_error(event) {
@@ -85,7 +85,7 @@ function album_script_error(event) {
     document.getElementById('album-descriptions').textContent = 'API HTTP请求错误';
     album_id = event.target.getAttribute('data-queried-album-id');
     console.log(`图包${album_id}载入错误`, event);
-    clicky_log_wrapper(`#album-error-${album_id}`);
+    clicky_log_wrapper(`/baipiao/clicky-virtual/error/album-load/http-error/${album_id}`, `Album ${id} HTTP error`, 'pageview');
 }
 
 function baipiao_album(album) {
@@ -94,6 +94,7 @@ function baipiao_album(album) {
     if (album['error']) {
         document.getElementById('album-title').textContent = '无法载入图包';
         document.getElementById('album-descriptions').textContent = `API返回错误信息：${album['error_msg']}`;
+        clicky_log_wrapper(`/baipiao/clicky-virtual/error/album-load/api-error/${album_id}`, `Album ${id} API error: ${album['error_msg']}`, 'pageview');
         return;
     }
     document.getElementById('album-title').textContent = `${album['id']}：${album['title']} `;
@@ -165,7 +166,7 @@ function baipiao_album(album) {
         music_img.src = album['bgm_img'].replace(/^http:\/\//, 'https://');
         music_info.appendChild(music_img);
     }
-    clicky_log_wrapper(`#album-view-${album['id']}`);
+    clicky_log_wrapper(`/baipiao/clicky-virtual/view/album/${album['id']}`, `${album['id']}：${album['title']}`, 'pageview');
 }
 
 function change_menu_type() {
@@ -201,15 +202,16 @@ function submit_menu(event) {
 function load_menu_by_page(page) {
     document.getElementById('menu-script')?.remove?.();
     const new_menu_script = document.createElement('script');
-    const menu_args = `${document.getElementById('menu-type').value}&page=${page}`;
+    const menu_type_args = document.getElementById('menu-type').value;
+    const menu_args = `${menu_type_args}&page=${page}`;
     new_menu_script.src = `${api_root}/apps/Welfare/getMenuList?callback=baipiao_menu&from=wx&${menu_args}`;
     new_menu_script.id = 'menu-script';
-    new_menu_script.setAttribute('data-requested-args', menu_args);
+    new_menu_script.setAttribute('data-requested-type', menu_type_args);
     new_menu_script.setAttribute('data-requested-page', page.toString());
     document.head.appendChild(new_menu_script);
     document.getElementById('menu-current-page').textContent = page.toString();
     document.getElementById('menu-prev').disabled = page <= 1;
-    clicky_log_wrapper(`#menu-load-${menu_args}`);
+    clicky_log_wrapper(`/baipiao/clicky-virtual/action/menu-load/${menu_type_args}/${page}`, `Loading menu ${menu_type_args} page ${page}`);
 }
 
 function baipiao_menu(menu) {
@@ -244,7 +246,9 @@ function baipiao_menu(menu) {
         menu_body.appendChild(a);
     }
     document.getElementById('menu-title').scrollIntoView();
-    clicky_log_wrapper(`#menu-view-${document.getElementById('menu-script').getAttribute('data-requested-args')}`);
+
+    const menu_type_args = document.getElementById('menu-script').getAttribute('data-requested-type')
+    clicky_log_wrapper(`/baipiao/clicky-virtual/view/menu/${menu_type_args}/${menu['page']}`, `Menu ${menu_type_args} page ${menu['page']}`, 'pageview');
 }
 
 function generate_fullsize_url(thumb_url) {
