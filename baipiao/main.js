@@ -204,14 +204,21 @@ function load_menu_by_page(page) {
     const new_menu_script = document.createElement('script');
     const menu_type_args = document.getElementById('menu-type').value;
     const menu_args = `${menu_type_args}&page=${page}`;
+    const selected_option = document.querySelector('#menu-type option:checked');
+    let menu_type_name = selected_option.textContent;
+    const selected_parent = selected_option.parentElement;
+    if (selected_parent?.nodeName === 'OPTGROUP') {
+        menu_type_name = `${selected_parent.getAttribute('label')}>${menu_type_name}`;
+    }
     new_menu_script.src = `${api_root}/apps/Welfare/getMenuList?callback=baipiao_menu&from=wx&${menu_args}`;
     new_menu_script.id = 'menu-script';
     new_menu_script.setAttribute('data-requested-type', menu_type_args);
     new_menu_script.setAttribute('data-requested-page', page.toString());
+    new_menu_script.setAttribute('data-requested-type-name', menu_type_name);
     document.head.appendChild(new_menu_script);
     document.getElementById('menu-current-page').textContent = page.toString();
     document.getElementById('menu-prev').disabled = page <= 1;
-    clicky_log_wrapper(`/baipiao/clicky-virtual/action/menu-load/${menu_type_args}/${page}`, `Loading menu ${menu_type_args} page ${page}`);
+    clicky_log_wrapper(`/baipiao/clicky-virtual/action/menu-load/${menu_type_args}/${page}`, `Loading menu ${menu_type_name} page ${page}`);
 }
 
 function baipiao_menu(menu) {
@@ -247,8 +254,10 @@ function baipiao_menu(menu) {
     }
     document.getElementById('menu-title').scrollIntoView();
 
-    const menu_type_args = document.getElementById('menu-script').getAttribute('data-requested-type')
-    clicky_log_wrapper(`/baipiao/clicky-virtual/view/menu/${menu_type_args}/${menu['page']}`, `Menu ${menu_type_args} page ${menu['page']}`, 'pageview');
+    const menu_script = document.getElementById('menu-script');
+    const menu_type_args = menu_script.getAttribute('data-requested-type');
+    const menu_type_name = menu_script.getAttribute('data-requested-type-name');
+    clicky_log_wrapper(`/baipiao/clicky-virtual/view/menu/${menu_type_args}/${menu['page']}`, `${menu_type_name} ${menu['page']}`, 'pageview');
 }
 
 function generate_fullsize_url(thumb_url) {
