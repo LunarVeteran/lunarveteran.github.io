@@ -66,7 +66,7 @@ function load_album_by_hash() {
 }
 
 function load_album_by_id(id) {
-    document.getElementById('album-script')?.remove?.();
+    document.getElementById('album-script')?.remove();
     if (id === null || id === '' || isNaN(id)) {
         empty_album();
         return;
@@ -180,14 +180,14 @@ function load_menu_if_not_yet_loaded() {
 }
 
 function menu_prev() {
-    const current_page = parseInt(document.getElementById('menu-script').getAttribute?.('data-requested-page'));
+    const current_page = parseInt(document.getElementById('menu-script')?.getAttribute('data-requested-page'));
     if (!isNaN(current_page) && current_page > 1) {
         load_menu_by_page(current_page - 1);
     }
 }
 
 function menu_next() {
-    const current_page = parseInt(document.getElementById('menu-script').getAttribute?.('data-requested-page'));
+    const current_page = parseInt(document.getElementById('menu-script')?.getAttribute('data-requested-page'));
     if (!isNaN(current_page)) {
         load_menu_by_page(current_page + 1);
     }
@@ -200,7 +200,7 @@ function submit_menu(event) {
 }
 
 function load_menu_by_page(page) {
-    document.getElementById('menu-script')?.remove?.();
+    document.getElementById('menu-script')?.remove();
     const new_menu_script = document.createElement('script');
     const menu_type_args = document.getElementById('menu-type').value;
     const menu_args = `${menu_type_args}&page=${page}`;
